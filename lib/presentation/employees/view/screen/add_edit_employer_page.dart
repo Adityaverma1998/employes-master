@@ -1,3 +1,4 @@
+import 'package:employes_master/core/routes/routes.dart';
 import 'package:employes_master/core/widgets/common/primary_layout.dart';
 import 'package:employes_master/presentation/auth/bloc/auth_bloc.dart';
 import 'package:employes_master/presentation/employees/bloc/add_employees_bloc/add_employee_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
   final int? empCode; // 🔹 null = add mode, non-null = edit mode
@@ -96,14 +98,14 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     SnackBar(
                       content: Text(
                         state.isEditMode
-                            ? "Employee updated successfully ✅"
-                            : "Employee added successfully ✅",
+                            ? "Employee updated successfully "
+                            : "Employee added successfully ",
                       ),
                       backgroundColor: Colors.green,
                     ),
                   );
                   context.read<AddEmployeeBloc>().add(AddEmployeeReset());
-                  Navigator.pop(context);
+                  context.push(AppRoutes.employees);
                 }
               },
             ),

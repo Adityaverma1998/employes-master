@@ -10,6 +10,7 @@ class PrimaryLayout extends StatelessWidget {
   final bool showBackButton;
   final VoidCallback? onLogout;
   final PreferredSizeWidget? appBarBottom;
+  final Widget? floatingActionButton;
 
   const PrimaryLayout({
     super.key,
@@ -18,6 +19,7 @@ class PrimaryLayout extends StatelessWidget {
     this.showBackButton = false,
     this.onLogout,
     this.appBarBottom,
+    this.floatingActionButton,
   });
 
   ///  Get current tab index
@@ -57,6 +59,7 @@ class PrimaryLayout extends StatelessWidget {
 
       ///  Body
       body: SafeArea(child: child),
+      floatingActionButton: floatingActionButton,
 
       ///  Bottom Navigation
       bottomNavigationBar: BottomNavigationBar(

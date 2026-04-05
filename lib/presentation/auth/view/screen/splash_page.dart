@@ -1,3 +1,4 @@
+import 'package:employes_master/core/constants/app_assets_constant.dart';
 import 'package:employes_master/core/routes/routes.dart';
 import 'package:employes_master/presentation/auth/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,12 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.business_center, size: 80.sp, color: Colors.white),
-
+              Image.asset(
+                AppAssetsConstant.appLogo,
+                width: 80.w,
+                height: 80.h,
+                fit: BoxFit.contain,
+              ),
               SizedBox(height: 20.h),
 
               Text(

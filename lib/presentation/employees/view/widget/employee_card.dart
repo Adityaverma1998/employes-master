@@ -1,3 +1,4 @@
+import 'package:employes_master/core/helper/formate_salary.dart';
 import 'package:employes_master/domain/entities/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +27,6 @@ class EmployeeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14.r),
@@ -42,7 +42,6 @@ class EmployeeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// 🔹 Top Row (Avatar + Name + Salary)
           Row(
             children: [
               CircleAvatar(
@@ -60,7 +59,6 @@ class EmployeeCard extends StatelessWidget {
 
               SizedBox(width: 10.w),
 
-              /// Name + Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,7 +90,7 @@ class EmployeeCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.r),
                 ),
                 child: Text(
-                  "₹${employee.salary.toStringAsFixed(0)}",
+                  FormateSalary.formatRupee(employee.salary),
                   style: TextStyle(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
@@ -105,17 +103,19 @@ class EmployeeCard extends StatelessWidget {
 
           SizedBox(height: 8.h),
 
-          /// 🔹 Middle Info
-          Text(
-            "📞 ${employee.mobile}",
-            style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade700),
-          ),
-
-          SizedBox(height: 2.h),
-
-          Text(
-            "📅 Joined: ${employee.doj}",
-            style: TextStyle(fontSize: 11.sp, color: Colors.grey.shade500),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "📞 ${employee.mobile}",
+                style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade700),
+              ),
+              Text(
+                "📅 Joined: ${employee.doj}",
+                style: TextStyle(fontSize: 12.sp, color: Colors.grey.shade500),
+              ),
+            ],
           ),
 
           SizedBox(height: 10.h),

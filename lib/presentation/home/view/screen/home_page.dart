@@ -1,3 +1,4 @@
+import 'package:employes_master/core/helper/formate_salary.dart';
 import 'package:employes_master/core/routes/routes.dart';
 import 'package:employes_master/core/widgets/common/primary_layout.dart';
 import 'package:employes_master/presentation/auth/bloc/auth_bloc.dart';
@@ -96,7 +97,9 @@ class HomeScreen extends StatelessWidget {
                         ),
                         _buildCard(
                           title: "Monthly Payroll",
-                          value: "₹${state.monthlyPayroll.toStringAsFixed(0)}",
+                          value: FormateSalary.formatRupee(
+                            state.monthlyPayroll,
+                          ),
                           icon: Icons.currency_rupee,
                           color: Colors.orange,
                         ),

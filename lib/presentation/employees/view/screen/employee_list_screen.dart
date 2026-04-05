@@ -31,6 +31,7 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   Widget build(BuildContext context) {
     return PrimaryLayout(
       title: "Employees",
+      floatingActionButton: _buildFAB(context),
 
       child: BlocBuilder<EmployeeBloc, EmployeeState>(
         builder: (context, state) {
@@ -48,9 +49,10 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           final employees = _searchController.text.isNotEmpty
               ? state.filteredEmployees
               : state.employees;
+          final isSearching = _searchController.text.isNotEmpty;
 
           ///  Empty State
-          if (employees.isEmpty) {
+          if (!isSearching && state.employees.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -108,32 +110,11 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                   ),
                 ),
 
-                ///  Add Button
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 45.h,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.push(AppRoutes.addEmployee);
-                      },
-                      icon: Icon(Icons.add, size: 18.r),
-                      label: Text(
-                        "Add Employee",
-                        style: TextStyle(fontSize: 14.sp),
-                      ),
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: 10.h),
-
                 /// Employee List
                 Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 16.w,
+                      horizontal: 12.w,
                       vertical: 10.h,
                     ),
                     itemCount: employees.length,
@@ -174,6 +155,28 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildFAB(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: FloatingActionButton(
+        onPressed: () {
+          context.push(AppRoutes.addEmployee);
+        },
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add, size: 26.r),
       ),
     );
   }

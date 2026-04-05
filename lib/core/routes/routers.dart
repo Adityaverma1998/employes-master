@@ -64,6 +64,7 @@ GoRouter routerConfig = GoRouter(
     ),
 
     GoRoute(
+      name: AppRoutes.employees,
       path: AppRoutes.employees,
       pageBuilder: (context, state) => buildPageWithTransition(
         child: const EmployeeListScreen(),
