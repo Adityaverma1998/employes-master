@@ -2,8 +2,8 @@ import 'package:floor/floor.dart';
 
 @Entity(tableName: 'employees')
 class EmployeeEntity {
-  @PrimaryKey()
-  final int empCode;
+  @PrimaryKey(autoGenerate: true)
+  final int? empCode;
 
   final String empName;
   final String mobile;
@@ -15,7 +15,7 @@ class EmployeeEntity {
   final String? remark;
 
   EmployeeEntity({
-    required this.empCode,
+    this.empCode,
     required this.empName,
     required this.mobile,
     required this.dob,

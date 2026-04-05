@@ -91,10 +91,10 @@ class AddEmployeeBloc extends Bloc<AddEmployeeEvent, AddEmployeeState> {
         ? await updateEmployee(state.form)
         : await addEmployee(state.form);
 
-    result.fold(
-      (f) => emit(state.copyWith(isSubmitting: false, submitError: f.message)),
-      (_) => emit(state.copyWith(isSubmitting: false, isSuccess: true)),
-    );
+    result.fold((f) {
+      print("Error: ${f.message}");
+      emit(state.copyWith(isSubmitting: false, submitError: f.message));
+    }, (_) => emit(state.copyWith(isSubmitting: false, isSuccess: true)));
   }
 
   // ─────────────────────────────────────────────

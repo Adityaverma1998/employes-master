@@ -107,21 +107,6 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                 }
               },
             ),
-            BlocListener<AuthBloc, AuthState>(
-              listener: (context, state) {
-                if (state is AuthUnauthenticated) {
-                  Navigator.pushReplacementNamed(context, '/login');
-                }
-                if (state is AuthError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              },
-            ),
           ],
           child: BlocBuilder<AddEmployeeBloc, AddEmployeeState>(
             builder: (context, state) {

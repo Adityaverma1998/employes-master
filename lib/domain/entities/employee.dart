@@ -1,5 +1,5 @@
 class Employee {
-  final int empCode;
+  final int? empCode;
   final String empName;
   final String mobile;
   final String dob;
@@ -9,7 +9,7 @@ class Employee {
   final String? remark;
 
   Employee({
-    required this.empCode,
+    this.empCode,
     required this.empName,
     required this.mobile,
     required this.dob,

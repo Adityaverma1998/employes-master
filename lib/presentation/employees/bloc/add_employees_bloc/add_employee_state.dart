@@ -12,7 +12,7 @@ class AddEmployeeState {
   final AddEmployeeMode mode;
 
   static Employee get _empty => Employee(
-    empCode: 0,
+    empCode: null,
     empName: '',
     mobile: '',
     dob: '',

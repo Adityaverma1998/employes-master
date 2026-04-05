@@ -37,6 +37,7 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       await dao.insertEmployee(employee.toEntity());
       return const Right(unit);
     } catch (e) {
+      print("check error are $e");
       return Left(DatabaseFailure("Failed to add employee"));
     }
   }
