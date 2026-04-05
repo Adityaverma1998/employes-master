@@ -15,12 +15,15 @@ class HomeScreen extends StatelessWidget {
     return PrimaryLayout(
       title: "Dashboard",
       showBackButton: false,
+      appBarBottom: PreferredSize(
+        preferredSize: Size.fromHeight(40.h),
+        child: _buildGreeting(),
+      ),
       onLogout: () {
         context.read<AuthBloc>().add(LogoutEvent());
       },
       child: MultiBlocListener(
         listeners: [
-          /// 🔹 HomeBloc Listener
           BlocListener<HomeBloc, HomeState>(
             listener: (context, state) {
               if (state.error != null) {
@@ -34,7 +37,6 @@ class HomeScreen extends StatelessWidget {
             },
           ),
 
-          /// 🔹 AuthBloc Listener
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
               if (state is AuthUnauthenticated) {
@@ -53,7 +55,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
 
-        /// 🔹 HomeBloc Builder (UI)
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state.isLoading) {
@@ -71,15 +72,6 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// 🔹 Greeting
-                    Text(
-                      state.greeting,
-                      style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    SizedBox(height: 20.h),
 
                     /// 🔹 Dashboard Cards
                     GridView.count(
@@ -180,7 +172,25 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  /// 🔹 Reusable Card Widget
+  Widget _buildGreeting() {
+    return BlocSelector<HomeBloc, HomeState, String>(
+      selector: (state) => state.greeting,
+      builder: (context, greeting) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "👋 $greeting",
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  ///  Reusable Card Widget
   Widget _buildCard({
     required String title,
     required String value,

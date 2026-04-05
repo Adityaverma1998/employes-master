@@ -54,9 +54,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetEmployeeByIdUseCase(sl()));
 
   ///  BLOCS
-  sl.registerFactory(() => HomeBloc(sl()));
+  sl.registerFactory(() => HomeBloc(sl<GetEmployeesUseCase>()));
 
-  sl.registerFactory(() => EmployeeBloc(sl()));
+  sl.registerFactory(
+    () => EmployeeBloc(sl<GetEmployeesUseCase>(), sl<DeleteEmployeeUseCase>()),
+  );
   sl.registerFactory(
     () => AddEmployeeBloc(
       addEmployee: sl<AddEmployeeUseCase>(),
