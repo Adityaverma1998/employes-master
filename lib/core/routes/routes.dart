@@ -3,4 +3,6 @@ class AppRoutes {
   static const employees = '/employees';
   static const search = '/search';
   static const profile = '/profile';
+  static const login = '/login';
+  static const splash = '/splash';
 }
