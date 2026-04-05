@@ -1,6 +1,7 @@
 import 'package:employes_master/core/di/injector.dart';
 import 'package:employes_master/core/routes/routers.dart';
 import 'package:employes_master/presentation/auth/bloc/auth_bloc.dart';
+import 'package:employes_master/presentation/employees/bloc/add_employees_bloc/add_employee_bloc.dart';
 import 'package:employes_master/presentation/employees/bloc/employee_bloc.dart';
 import 'package:employes_master/presentation/home/bloc/home_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,7 @@ class App extends StatelessWidget {
 
             /// 👨‍💼 EMPLOYEE
             BlocProvider(create: (_) => sl<EmployeeBloc>()),
+            BlocProvider(create: (_) => sl<AddEmployeeBloc>()),
           ],
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,

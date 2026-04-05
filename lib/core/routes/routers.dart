@@ -1,6 +1,8 @@
+import 'package:employes_master/core/helper/route_param_helper.dart';
 import 'package:employes_master/core/routes/routes.dart';
 import 'package:employes_master/presentation/auth/view/screen/login_page.dart';
 import 'package:employes_master/presentation/auth/view/screen/splash_page.dart';
+import 'package:employes_master/presentation/employees/view/screen/add_edit_employer_page.dart';
 import 'package:employes_master/presentation/employees/view/screen/employee_list_screen.dart';
 import 'package:employes_master/presentation/home/view/screen/home_page.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +69,18 @@ GoRouter routerConfig = GoRouter(
         child: const EmployeeListScreen(),
         state: state,
       ),
+    ),
+    GoRoute(
+      path: AppRoutes.addEmployee,
+      pageBuilder: (context, state) {
+        final employeeId = RouteParamHelper.toNullableInt(
+          state.uri.queryParameters['employeeId'],
+        );
+        return buildPageWithTransition(
+          child: AddEmployeeScreen(empCode: employeeId),
+          state: state,
+        );
+      },
     ),
   ],
 );

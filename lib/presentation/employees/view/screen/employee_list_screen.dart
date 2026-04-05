@@ -1,9 +1,10 @@
+import 'package:employes_master/core/routes/routes.dart';
 import 'package:employes_master/core/widgets/common/primary_layout.dart';
-import 'package:employes_master/presentation/auth/bloc/auth_bloc.dart';
 import 'package:employes_master/presentation/employees/bloc/employee_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   const EmployeeListScreen({super.key});
@@ -12,9 +13,7 @@ class EmployeeListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimaryLayout(
       title: "Employees",
-      onLogout: () {
-        context.read<AuthBloc>().add(LogoutEvent());
-      },
+
       child: BlocBuilder<EmployeeBloc, EmployeeState>(
         builder: (context, state) {
           if (state.isLoading) {
@@ -26,7 +25,19 @@ class EmployeeListScreen extends StatelessWidget {
           }
 
           if (state.employees.isEmpty) {
-            return const Center(child: Text("No employees found"));
+            return Center(
+              child: Column(
+                children: [
+                  const Text("No employees found"),
+                  IconButton(
+                    onPressed: () {
+                      context.push(AppRoutes.addEmployee);
+                    },
+                    icon: const Icon(Icons.add_circle_outline, size: 60),
+                  ),
+                ],
+              ),
+            );
           }
 
           return RefreshIndicator(

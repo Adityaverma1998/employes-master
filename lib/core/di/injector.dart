@@ -9,8 +9,10 @@ import 'package:employes_master/domain/usecase/auth/login_usecase.dart';
 import 'package:employes_master/domain/usecase/auth/logout_usecase.dart';
 import 'package:employes_master/domain/usecase/employee/add_employee_usecase.dart';
 import 'package:employes_master/domain/usecase/employee/delete_employee_usecase.dart';
+import 'package:employes_master/domain/usecase/employee/get_employee_by_id.dart';
 import 'package:employes_master/domain/usecase/employee/update_employee_usecase.dart';
 import 'package:employes_master/presentation/auth/bloc/auth_bloc.dart';
+import 'package:employes_master/presentation/employees/bloc/add_employees_bloc/add_employee_bloc.dart';
 import 'package:employes_master/presentation/employees/bloc/employee_bloc.dart';
 import 'package:employes_master/presentation/home/bloc/home_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,9 +51,17 @@ Future<void> init() async {
   sl.registerLazySingleton(() => AddEmployeeUseCase(sl()));
   sl.registerLazySingleton(() => UpdateEmployeeUseCase(sl()));
   sl.registerLazySingleton(() => DeleteEmployeeUseCase(sl()));
+  sl.registerLazySingleton(() => GetEmployeeByIdUseCase(sl()));
 
   ///  BLOCS
   sl.registerFactory(() => HomeBloc(sl()));
 
   sl.registerFactory(() => EmployeeBloc(sl()));
+  sl.registerFactory(
+    () => AddEmployeeBloc(
+      addEmployee: sl<AddEmployeeUseCase>(),
+      updateEmployee: sl<UpdateEmployeeUseCase>(),
+      getEmployeeById: sl<GetEmployeeByIdUseCase>(),
+    ),
+  );
 }

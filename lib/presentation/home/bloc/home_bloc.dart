@@ -1,3 +1,4 @@
+import 'package:employes_master/core/helper/DateTimeUtils.dart';
 import 'package:employes_master/domain/entities/employee.dart';
 import 'package:employes_master/domain/usecase/employee/get_employee_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +30,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         /// Current Month Joined
         final joinedThisMonth = employees.where((e) {
-          final doj = DateTime.parse(e.doj);
-          return doj.month == now.month && doj.year == now.year;
+          final doj = DateTimeUtils.parse(e.doj);
+          if (doj == null) return false;
+
+          return DateTimeUtils.isSameMonth(doj, now);
         }).length;
 
         /// Monthly Payroll
@@ -38,7 +41,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
         /// Today's Birthdays
         final birthdays = employees.where((e) {
-          final dob = DateTime.parse(e.dob);
+          final dob = DateTimeUtils.parse(e.dob);
+          if (dob == null) return false;
+
           return dob.day == now.day && dob.month == now.month;
         }).toList();
 
