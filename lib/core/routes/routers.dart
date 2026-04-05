@@ -71,6 +71,7 @@ GoRouter routerConfig = GoRouter(
       ),
     ),
     GoRoute(
+      name: AppRoutes.addEmployee,
       path: AppRoutes.addEmployee,
       pageBuilder: (context, state) {
         final employeeId = RouteParamHelper.toNullableInt(

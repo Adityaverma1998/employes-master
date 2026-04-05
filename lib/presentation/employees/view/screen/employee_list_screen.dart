@@ -82,7 +82,21 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                     itemBuilder: (context, index) {
                       final employee = state.employees[index];
 
-                      return EmployeeCard(employee: employee);
+                      return EmployeeCard(
+                        employee: employee,
+                        onEdit: () {
+                          context.pushNamed(
+                            AppRoutes.addEmployee,
+                            queryParameters: {
+                              'employeeId': "${employee.empCode}",
+                            },
+                          );
+                        },
+                        onDelete: () {
+                          // context.read<EmployeeBloc>().add(
+                          //   DeleteEmployeeEvent(employee),
+                        },
+                      );
                     },
                   ),
                 ),
