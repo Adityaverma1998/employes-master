@@ -17,6 +17,17 @@ import 'package:employes_master/presentation/employees/bloc/employee_bloc.dart';
 import 'package:employes_master/presentation/home/bloc/home_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+import 'package:employes_master/data/data_source/remote/analytics_remote_datasource.dart';
+import 'package:employes_master/data/data_source/repository_impl/analytics_repository_impl/analytics_repository_impl.dart';
+import 'package:employes_master/domain/repository/analytics_repository.dart';
+import 'package:employes_master/domain/usecase/analytics/log_event_usecase.dart';
+import 'package:employes_master/domain/usecase/analytics/log_login_usecase.dart';
+import 'package:employes_master/domain/usecase/analytics/log_sign_up_usecase.dart';
+import 'package:employes_master/domain/usecase/analytics/set_current_screen_usecase.dart';
+import 'package:employes_master/domain/usecase/analytics/set_user_id_usecase.dart';
+import 'package:employes_master/domain/usecase/analytics/set_user_property_usecase.dart';
 
 import '../../domain/usecase/employee/get_employee_usecase.dart';
 
@@ -42,6 +53,19 @@ Future<void> init() async {
 
   sl.registerFactory(() => AuthBloc(loginUseCase: sl(), logoutUseCase: sl()));
 
+  ///  ANALYTICS
+  sl.registerLazySingleton(() => FirebaseAnalytics.instance);
+  sl.registerLazySingleton(() => AnalyticsRemoteDataSource(sl()));
+
+  sl.registerLazySingleton<AnalyticsRepository>(
+      () => AnalyticsRepositoryImpl(sl()));
+
+  sl.registerLazySingleton(() => LogEventUseCase(sl()));
+  sl.registerLazySingleton(() => SetUserIdUseCase(sl()));
+  sl.registerLazySingleton(() => SetUserPropertyUseCase(sl()));
+  sl.registerLazySingleton(() => SetCurrentScreenUseCase(sl()));
+  sl.registerLazySingleton(() => LogLoginUseCase(sl()));
+  sl.registerLazySingleton(() => LogSignUpUseCase(sl()));
   ///  EMPLOYEE
   sl.registerLazySingleton<EmployeeRepository>(
     () => EmployeeRepositoryImpl(sl()),
