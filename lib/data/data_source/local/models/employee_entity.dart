@@ -10,9 +10,12 @@ class EmployeeEntity {
   final String dob;
   final String doj;
   final double salary;
-
   final String? address;
   final String? remark;
+  final String? firebaseId;         // Firebase document ID
+  final int isSynced;               // 0 = pending, 1 = synced
+  final int isDeleted;              // 0 = active, 1 = soft deleted
+  final int updatedAt;              // millisecondsSinceEpoch
 
   EmployeeEntity({
     this.empCode,
@@ -23,5 +26,9 @@ class EmployeeEntity {
     required this.salary,
     this.address,
     this.remark,
-  });
+    this.firebaseId,
+    this.isSynced = 0,
+    this.isDeleted = 0,
+    int? updatedAt,
+  }) : updatedAt = updatedAt ?? DateTime.now().millisecondsSinceEpoch;
 }
